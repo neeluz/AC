@@ -1,0 +1,38 @@
+/*      45. WAP in C to count substring in main string .       */
+
+#include <string.h>
+#include <stdio.h>
+
+int main()
+{
+    char str[50];
+
+    // Ask user to input a string
+    printf("Enter string: ");
+    scanf("%[^\n]", str);  // Read input including spaces until newline
+
+    int i, count = 0, in_word = 0;
+
+    // Loop through each character in the string
+    for (i = 0; str[i]; i++)
+    {
+        // If current character is not a space
+        if (str[i] != ' ')
+        {
+            // If we were not already inside a word
+            if (!in_word)
+            {
+                in_word = 1;  // We're now inside a word
+                count++;      // Count this as a new word
+            }
+        }
+        else
+        {
+            in_word = 0;  // We hit a space, so we're no longer in a word
+        }
+    }
+
+    // Print total word count
+    printf("Number of words = %d\n", count);
+    return 0;
+}
