@@ -1,0 +1,63 @@
+/*
+48. WAP in C to delete palindrome word from string.
+ i/p: char s[20]=”laxmi madam vector ”
+ o/p: char s[20]=”laxmi vector ”
+
+*/
+
+#include <stdio.h>
+
+// Function to check if a word is a palindrome
+int is_palindrome(int start, int end, char *str)
+{
+    while (start < end)
+    {
+        if (str[start] != str[end])
+            return 0;  // Not a palindrome
+        start++;
+        end--;
+    }
+    return 1;  // Is a palindrome
+}
+
+int main()
+{
+    char str[100];
+    printf("Enter string: ");
+    scanf("%[^\n]", str);  // Read input line with spaces
+
+    int start, end, i = 0, j = 0, k;
+
+    // Loop through each character in the string
+    while (str[i])
+    {
+        // Copy and preserve all spaces
+        while (str[i] == ' ')
+            str[j++] = str[i++];
+
+        // Mark the start index of a word
+        start = i;
+
+        // Move `i` to the end of the word
+        while (str[i] != ' ' && str[i] != '\0')
+            i++;
+
+        // Mark the end index of the word
+        end = i - 1;
+
+        // If the word is not a palindrome, copy it to the new position
+        if (!is_palindrome(start, end, str))
+        {
+            for (k = start; k <= end; k++)
+                str[j++] = str[k];
+        }
+        // If the word is a palindrome, skip copying it (removing it)
+    }
+
+    // Null-terminate the modified string
+    str[j] = '\0';
+
+    // Print the result
+    printf("Modified : %s\n", str);
+    return 0;
+}
