@@ -1,0 +1,50 @@
+/*          47. WAP in C delete substring from main string .
+               i/p: char m[20]=”abc45 78abc”,s[10]=”abc”;
+               o/p: char m[20]=”45 78”;   
+*/
+
+#include <stdio.h>
+#include <string.h>
+
+void delete_sub(char *str, char *sub)
+{
+    int len = strlen(str);
+    int slen = strlen(sub);
+    int i, j;
+
+    for (i = 0; i <= len - slen; i++)
+    {
+        // Check if substring matches at position i
+        if (strncmp(&str[i], sub, slen) == 0)
+        {
+            // Shift the rest of the string to the left
+            for (j = i; j <= len - slen; j++)
+            {
+                str[j] = str[j + slen];
+            }
+       //     break; //- Remove only the first occurrence. if no break, it will remove all the occurences
+        }
+    }
+}
+
+int main() 
+{
+    char str[50], sub[20];
+
+    // Input main string
+    printf("Enter string: ");
+    scanf(" %[^\n]", str);  // Space before %[^\n] skips leading newline
+    getchar();
+
+    // Input substring to delete
+    printf("Enter substring: ");
+    scanf(" %[^\n]", sub);  
+
+    // Call the function
+    delete_sub(str, sub);
+
+    // Print result
+    printf("New string: %s\n", str);
+
+    return 0;
+}
