@@ -1,0 +1,57 @@
+/*
+          WAP in C to delete largest word from string.
+             i/p: char s[20]=”c vector ds coder”
+             o/p: char s[20
+*/
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char str[100];
+    printf("Enter string: ");
+    scanf("%[^\n]", str);  // Read input string with spaces
+
+    int i = 0;
+    int maxLength = 0;
+    int wordStart = 0, wordEnd = 0;          // To track current word boundaries
+    int longestStart = 0, longestEnd = 0;    // To track longest word boundaries
+    int len = strlen(str);
+
+    while (i <= len)
+    {
+        // Skip leading spaces
+        while (str[i] == ' ' && i <= len)
+            i++;
+
+        wordStart = i;  // Start index of the current word
+
+        // Traverse the current word
+        while (str[i] != ' ' && str[i] != '\0')
+            i++;
+
+        wordEnd = i - 1;  // End index of the current word
+
+        // If this word is longer than previously found words
+        if ((wordEnd - wordStart + 1) > maxLength)
+        {
+            maxLength = wordEnd - wordStart + 1;
+            longestStart = wordStart;
+            longestEnd = wordEnd;
+        }
+    }
+
+    // Shift characters to delete the longest word
+    for (i = longestStart; i <= len - (longestEnd - longestStart + 1); i++)
+    {
+        str[i] = str[i + (longestEnd - longestStart + 1)];
+    }
+
+    // Null-terminate the string after shifting
+    str[len - (longestEnd - longestStart + 1)] = '\0';
+
+    printf("Modified string: %s\n", str);
+
+    return 0;
+}
