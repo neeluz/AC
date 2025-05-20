@@ -1,0 +1,66 @@
+/*
+      WAP in C to replace one word with another word
+      in string [word lenght -> same or diffrent]  
+         i/p: char s[30]=”pf123 pf78 pf”,
+         s1[10]=”pf”,s2[10]=’printf’ ;
+      o/p: char s[20]=”printf123 printf78 printf”;
+
+*/
+
+#include <string.h>
+#include <stdio.h>
+
+int main()
+{
+    char str[100], del[20], sub[20], res[100];
+
+    // Input the original string
+    printf("Enter string: ");
+    scanf("%[^\n]", str);
+    getchar();  // Consume the newline character left by scanf
+
+    // Input the word to be replaced (deleted)
+    printf("Enter string to delete: ");
+    scanf("%[^\n]", del); 
+    getchar();  // Consume the newline character again
+
+    // Input the word to be used as substitute
+    printf("Enter string to substitute: ");
+    scanf("%[^\n]", sub); 
+    
+    // Initialize lengths and pointers
+    int i = 0, j = 0;
+    int len = strlen(str);    // Length of original string
+    int dlen = strlen(del);   // Length of word to delete
+    int slen = strlen(sub);   // Length of substitute word
+
+    // Loop through the original string
+    while (i <= len)
+    {
+        // If current part of string matches the word to delete
+        if (strncmp(&str[i], del, dlen) == 0)
+        {
+            // Copy the substitute word to result string
+            strcpy(&res[j], sub);
+
+            // Move result index forward by length of substitute word
+            j += slen;
+
+            // Skip the matched word in original string
+            i += dlen;
+        }
+        else
+        {
+            // Copy current character if no match
+            res[j++] = str[i++];
+        }
+    }
+
+    // Null terminate the result string
+    res[j] = '\0';
+
+    // Output the final modified string
+    printf("Modified string: %s\n", res);
+
+    return 0;
+}
