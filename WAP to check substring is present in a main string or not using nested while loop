@@ -1,0 +1,62 @@
+/*
+        44.WAP in C to check substring is present in a
+            main string or not using nested while loop.
+                  i/p: char m[20]=”123 abc”, s[10]=”abc”;
+                  o/p: yes
+
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    char str[30], sub[10];
+
+    // Prompt user to enter the main string
+    printf("Enter string: ");
+    scanf(" %[^\n]", str); // Read input including spaces until newline
+    getchar(); // Consume the newline character left in the buffer
+
+    // Prompt user to enter the substring to search for
+    printf("Enter substring to search for: ");
+    scanf(" %[^\n]", sub); // Read the substring
+    getchar(); // Consume the newline again
+
+    int i = 0, j = 0, flag = 0; // i - index for str, j - index for sub, flag - match indicator
+
+    // Loop through the main string until null terminator
+    while (str[i] != '\0')
+    {
+        // If current characters match, move both indices forward
+        if (sub[j] == str[i])
+        {
+            j++;
+            i++;
+
+            // If we reached end of sub, it means sub is found in str
+            if (sub[j] == '\0')
+            {
+                flag = 1; // Set flag to indicate match found
+                break;    // Exit loop early since match is found
+            }
+        }
+        else
+        {
+            // If mismatch, reset sub index and move str index by 1
+            j = 0;
+            i++;
+        }
+    }
+
+    // Print result based on flag
+    if (flag)
+    {
+        printf("Substring found in the string.\n");
+    }
+    else
+    {
+        printf("Substring not found in the string.\n");
+    }
+
+    return 0;
+}
